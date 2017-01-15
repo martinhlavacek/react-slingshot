@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {Link} from 'react-router';
 
-const HomePage = () => {
-  return (
-    <div>
-      <h1>React Slingshot</h1>
-
-      <h2>Get Started</h2>
-      <ol>
-        <li>Review the <Link to="fuel-savings">demo app</Link></li>
-        <li>Remove the demo and start coding: npm run remove-demo</li>
-      </ol>
-    </div>
-  );
-};
+class HomePage extends Component {
+  render() {
+    return (
+      <div className="wrapper wrapper-content animated fadeInRight">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="text-center m-t-lg">
+              <h1>
+                Welcome in INSPINIA ReactJS Seed Project
+              </h1>
+              <small>
+                It is an application skeleton for a typical web app. You can use it to quickly bootstrap your webapp projects.
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
 
 export default HomePage;

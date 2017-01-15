@@ -1,27 +1,51 @@
-import React, { PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import React from 'react';
+import Progress from './common/Progress';
+import Navigation from './common/Navigation';
+import Footer from './common/Footer';
+import TopHeader from './common/TopHeader';
+import IboxTools from './common/IboxTools';
+import { correctHeight, detectBody } from './common/Helpers';
 
-// This is a class-based component because the current
-// version of hot reloading won't hot reload a stateless
-// component at the top-level.
 class App extends React.Component {
+
   render() {
+
+    let path = this.props.location.pathname;
+
+    if(this.props.location.pathname == '/'){
+      path = '/main';
+    }
+    let wrapperClass = "gray-bg " + path;
     return (
-      <div>
-        <IndexLink to="/">Home</IndexLink>
-        {' | '}
-        <Link to="/fuel-savings">Demo App</Link>
-        {' | '}
-        <Link to="/about">About</Link>
-        <br/>
-        {this.props.children}
+      <div id="wrapper">
+        <Progress />
+        <Navigation location={this.props.location}/>
+
+        <div id="page-wrapper" className={wrapperClass}>
+
+          <TopHeader />
+          {this.props.children}
+          <Footer />
+        </div>
       </div>
-    );
+    )
+  }
+
+  componentDidMount() {
+
+    // Run correctHeight function on load and resize window event
+    $(window).bind("load resize", function() {
+      correctHeight();
+      detectBody();
+    });
+
+    // Correct height of wrapper after metisMenu animation.
+    $('.metismenu a').click(() => {
+      setTimeout(() => {
+        correctHeight();
+      }, 300)
+    });
   }
 }
 
-App.propTypes = {
-  children: PropTypes.element
-};
-
-export default App;
+export default App
